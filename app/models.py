@@ -22,13 +22,15 @@ class Customer(Base):
   phone: Mapped[str] = mapped_column(db.String(255), nullable=False)
 
 
-  service_tickets: Mapped[List['Service_ticket']] = db.relationship(back_populates='customer')
+  service_tickets: Mapped[List['Service_ticket']] = db.relationship(
+     back_populates='customer',
+     cascade="all, delete-orphan")
 
 service_mechanic = db.Table(
     'service_mechanic',
     Base.metadata,
     db.Column('service_ticket_id', db.ForeignKey('service_tickets.id')),
-    db.Column('mechanic_id', db.ForeignKey('mechanics.id'))
+    db.Column('mechanic_id', db.ForeignKey('mechanics.id', ondelete="CASCADE"))
 )
 
 class Service_ticket(Base):
@@ -37,11 +39,14 @@ class Service_ticket(Base):
   id: Mapped[int] = mapped_column(primary_key=True)
   VIN:Mapped[str] = mapped_column(db.String(255), nullable=False)
   service_date: Mapped[date] = mapped_column(db.Date)
-  customer_id: Mapped[int] = mapped_column(db.ForeignKey('customers.id'))
+  customer_id: Mapped[int] = mapped_column(db.ForeignKey('customers.id', ondelete="CASCADE"))
 
 
   customer: Mapped['Customer'] = db.relationship(back_populates='service_tickets')
-  mechanics: Mapped[List['Mechanic']] = db.relationship(secondary=service_mechanic, back_populates='service_tickets')
+  mechanics: Mapped[List['Mechanic']] = db.relationship(
+     secondary=service_mechanic,
+     back_populates='service_tickets',
+     passive_deletes=True)
 
 
 class Mechanic(Base):
@@ -53,4 +58,7 @@ class Mechanic(Base):
     phone: Mapped[str] = mapped_column(db.String(255), nullable=False)
     salary: Mapped[str] = mapped_column(db.String(255), nullable=False)
 
-    service_tickets: Mapped[List['Service_ticket']] = db.relationship(secondary=service_mechanic, back_populates='mechanics')
+    service_tickets: Mapped[List['Service_ticket']] = db.relationship(
+       secondary=service_mechanic,
+       back_populates='mechanics',
+       passive_deletes=True)

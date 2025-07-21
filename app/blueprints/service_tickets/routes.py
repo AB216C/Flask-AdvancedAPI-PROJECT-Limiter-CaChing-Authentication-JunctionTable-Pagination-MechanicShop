@@ -26,18 +26,33 @@ def create_service_ticket():
   db.session.commit()
   return service_ticket_schema.jsonify(new_service_ticket),201
 
-#=========Assigning Service tickets to mechanics============
-@service_tickets_bp.route("/service_tickets/<int:service_ticket_id>/assign_mechanics", methods=['POST'])
-def assign_mechanics(service_ticket_id):
+#=========Assigning Service tickets to mechanic============
+@service_tickets_bp.route("/service_tickets/<int:service_ticket_id>/assign_mechanic/<int:mechanic_id>", methods=['PUT'])
+def assign_mechanic_to_ticket(service_ticket_id, mechanic_id):
   service_ticket = db.session.get(Service_ticket, service_ticket_id)
-  if not service_ticket:
-    return jsonify({"Error":"Ticket not found"}),404
-  mechanic_ids = request.json.get("mechanic_ids", [])
-  mechanics = db.session.query(Mechanic).filter(Mechanic.id.in_(mechanic_ids)).all()
-  service_ticket.mechanics = mechanics
+  mechanic = db.session.get(Mechanic, mechanic_id)
+  if not service_ticket or not mechanic:
+    return jsonify({"Error":"Service Ticket or Mechanic not found"}),404
+  if mechanic not in service_ticket.mechanics:
+    service_ticket.mechanics.append(mechanic)
+    db.session.commit
 
   db.session.commit()
-  return jsonify({"Message": "Mechanics assigned successfully"})
+  return jsonify({"Message": f"Mechanic {mechanic_id} assigned to service ticket {service_ticket_id}"})
+
+#==========Removing Service tickets from mechanic=======================
+@service_tickets_bp.route("/service_tickets/<int:service_ticket_id>/remove_mechanic/<int:mechanic_id>", methods=['PUT'])
+def remove_mechanic_from_ticket(service_ticket_id, mechanic_id):
+  service_ticket = db.session.get(Service_ticket, service_ticket_id)
+  mechanic = db.session.get(Mechanic, mechanic_id)
+  if not service_ticket or not mechanic:
+    return jsonify({"Error":"Service Ticket or Mechanic not found"}),404
+  if mechanic in service_ticket.mechanics:
+    service_ticket.mechanics.remove(mechanic)
+    db.session.commit
+
+  db.session.commit()
+  return jsonify({"Message": f"Mechanic {mechanic_id} removed from service ticket {service_ticket_id} successfully"})
   
 
 #============GETTING ALL Service_ticketS======================
@@ -81,7 +96,7 @@ def update_service_ticket(service_ticket_id):
   return service_ticket_schema.jsonify(service_ticket),200
 
 #=============DELETE Service_ticket ===========================
-@service_tickets_bp.route("/service_tickets/<int:Service_ticket_id>", methods=['DELETE'])
+@service_tickets_bp.route("/service_tickets/<int:service_ticket_id>", methods=['DELETE'])
 
 def delete_service_ticket(service_ticket_id):
   service_ticket = db.session.get(Service_ticket,service_ticket_id)

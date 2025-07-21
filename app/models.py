@@ -6,12 +6,10 @@ from typing import List
 
 from sqlalchemy import select
 
-
 class Base(DeclarativeBase):
   pass
 
 db = SQLAlchemy(model_class = Base)
-
 
 class Customer(Base):
   __tablename__ = 'customers'
@@ -20,7 +18,6 @@ class Customer(Base):
   name: Mapped[str] = mapped_column(db.String(255), nullable=False)
   email: Mapped[str] = mapped_column(db.String(360), nullable=False, unique=True)
   phone: Mapped[str] = mapped_column(db.String(255), nullable=False)
-
 
   service_tickets: Mapped[List['Service_ticket']] = db.relationship(
      back_populates='customer',
@@ -41,13 +38,11 @@ class Service_ticket(Base):
   service_date: Mapped[date] = mapped_column(db.Date)
   customer_id: Mapped[int] = mapped_column(db.ForeignKey('customers.id', ondelete="CASCADE"))
 
-
   customer: Mapped['Customer'] = db.relationship(back_populates='service_tickets')
   mechanics: Mapped[List['Mechanic']] = db.relationship(
      secondary=service_mechanic,
      back_populates='service_tickets',
      passive_deletes=True)
-
 
 class Mechanic(Base):
     __tablename__ = "mechanics"

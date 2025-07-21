@@ -5,7 +5,6 @@ from .blueprints.customers import customers_bp
 from .blueprints.mechanics import mechanics_bp
 from .blueprints.service_tickets import service_tickets_bp
 
-
 def create_app(config_name): 
   app = Flask(__name__)
   app.config.from_object(f'config.{config_name}')

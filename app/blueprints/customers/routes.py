@@ -5,8 +5,7 @@ from marshmallow import ValidationError
 from sqlalchemy import select
 from . import customers_bp
 
-
-@customers_bp.route("/customers", methods=['POST']) #This a listener: As soon as it hears, this request, it fires the following function
+@customers_bp.route("/customers", methods=['POST']) 
 def create_customer():
   try:
     customer_data = customer_schema.load(request.json)

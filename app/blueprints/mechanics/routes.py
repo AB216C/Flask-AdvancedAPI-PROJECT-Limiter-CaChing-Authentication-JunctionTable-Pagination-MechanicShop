@@ -6,7 +6,7 @@ from sqlalchemy import select
 from . import mechanics_bp
 
 
-@mechanics_bp.route("/mechanics", methods=['POST']) #This a listener: As soon as it hears, this request, it fires the following function
+@mechanics_bp.route("/mechanics", methods=['POST']) 
 def create_mechanic():
   try:
     mechanic_data = mechanic_schema.load(request.json)

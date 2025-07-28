@@ -4,6 +4,8 @@ from flask import request,jsonify
 from marshmallow import ValidationError
 from sqlalchemy import select
 from . import customers_bp
+from app.extentions import limiter,cache
+
 
 @customers_bp.route("/customers", methods=['POST']) 
 def create_customer():
@@ -24,8 +26,10 @@ def create_customer():
   db.session.commit()
   return customer_schema.jsonify(new_customer),201
 
-#============GETTING ALL CUSTOMERS======================
+#============GETTING ALL CUSTOMERS AND APPLYING LIMITER AND CACHE TO THE ROUTE======================
 @customers_bp.route("/customers", methods=['GET'])
+@limiter.limit("5 per 30 seconds")
+@cache.cached(timeout=80)
 def get_customers():
   query = select(Customer)
   customers = db.session.execute(query).scalars().all()

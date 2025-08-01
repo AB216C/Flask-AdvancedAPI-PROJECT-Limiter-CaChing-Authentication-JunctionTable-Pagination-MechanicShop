@@ -1,13 +1,42 @@
 from app.blueprints.service_tickets.schemas import service_ticket_schema,service_tickets_schema
 from app.models import Service_ticket,db
-from app.models import Mechanic
+from app.models import Mechanic, Service_Inventory, Inventory
 from flask import request,jsonify
 from marshmallow import ValidationError
 from sqlalchemy import select
 from . import service_tickets_bp
 
+@service_tickets_bp.route("/service_tickets/<int:service_ticket_id>/add_inventory",methods=['POST'])
+def add_part_to_service_ticket(service_ticket_id):
+  service_ticket = db.session.get(Service_ticket, service_ticket_id)
+  if not service_ticket:
+    return jsonify({"Error":"Service ticket not found"}),404
+  
+  data = request.json
 
-@service_tickets_bp.route("/service_tickets", methods=['POST']) #This a listener: As soon as it hears, this request, it fires the following function
+  part_id = data.get('part_id')
+  quantity = data.get('quantity')
+
+  if not part_id or not quantity:
+    return jsonify({"Error":"Part ID and quantity are required"}),400
+  inventory_part = db.session.get(Inventory,part_id)
+  if not inventory_part:
+    return jsonify({"Error":"Part not found"}),404
+  
+  #Let's create association between service ticket and inventory part
+  new_entry = Service_Inventory(service_ticket_id = service_ticket_id, part_id = part_id, quantity= quantity)
+
+  db.session.add(new_entry)
+  db.session.commit()
+
+  return jsonify({
+    "Message":"Part added to service ticket successfully",
+    "service_ticket_id":service_ticket_id,
+    "part_id":part_id,
+    "quantity":quantity
+    }),201
+
+@service_tickets_bp.route("/service_tickets", methods=['POST'])
 def create_service_ticket():
   try:
     service_ticket_data = service_ticket_schema.load(request.json)

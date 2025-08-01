@@ -1,10 +1,34 @@
-from app.blueprints.customers.schemas import customer_schema,customers_schema
+from app.blueprints.customers.schemas import customer_schema,customers_schema,login_schema
 from app.models import Customer,db
 from flask import request,jsonify
 from marshmallow import ValidationError
 from sqlalchemy import select
 from . import customers_bp
 from app.extentions import limiter,cache
+from app.utils.util import encode_token,token_required
+#This code generate token after logging in using email and password
+@customers_bp.route("/customer/login", methods=['POST'])
+def login():
+    try:
+        credentials = login_schema.load(request.json)
+        email = credentials['email']
+        password = credentials['password']
+    except ValidationError as e:
+        return jsonify(e.messages), 400
+
+    query = select(Customer).where(Customer.email == email)
+    customer = db.session.execute(query).scalars().first()  
+
+    if customer and customer.password == password:
+        token = encode_token(customer.id)
+        response = {
+            "status": "success",
+            "message": "Login successful",
+            "token": token
+        }
+        return jsonify(response), 200
+    else:
+        return jsonify({"Error": "Invalid email or password"})
 
 
 @customers_bp.route("/customers", methods=['POST']) 
@@ -38,7 +62,8 @@ def get_customers():
 #==============RETRIEVE SPECIFIC CUSTOMER=================
 
 @customers_bp.route("/customers/<int:customer_id>", methods=['GET'])
-
+@limiter.limit("2 per 60 seconds")
+@cache.cached(timeout=80)
 def get_customer(customer_id):
   customer = db.session.get(Customer,customer_id)
 
@@ -49,6 +74,7 @@ def get_customer(customer_id):
 #=============UPDATE A CUSTOMER ========================
 
 @customers_bp.route("/customers/<int:customer_id>", methods=['PUT'])
+@token_required
 
 def update_customer(customer_id):
   customer = db.session.get(Customer,customer_id)
@@ -70,6 +96,7 @@ def update_customer(customer_id):
 
 #=============DELETE CUSTOMER ===========================
 @customers_bp.route("/customers/<int:customer_id>", methods=['DELETE'])
+@token_required
 
 def delete_customer(customer_id):
   customer = db.session.get(Customer,customer_id)

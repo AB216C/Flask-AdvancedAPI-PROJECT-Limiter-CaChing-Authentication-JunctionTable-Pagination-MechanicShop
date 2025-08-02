@@ -5,6 +5,7 @@ from marshmallow import ValidationError
 from sqlalchemy import select
 from . import inventory_bp
 
+#============CREATE AN INVENTORY =======================
 
 @inventory_bp.route("/inventory", methods=['POST']) 
 def create_inventory():

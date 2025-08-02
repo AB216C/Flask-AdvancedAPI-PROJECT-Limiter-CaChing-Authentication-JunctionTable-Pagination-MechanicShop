@@ -5,7 +5,7 @@ from marshmallow import ValidationError
 from sqlalchemy import select
 from . import mechanics_bp
 
-
+#============CREATE A MECHANIC =======================
 @mechanics_bp.route("/mechanics", methods=['POST']) 
 def create_mechanic():
   try:
@@ -79,7 +79,7 @@ def delete_mechanic(mechanic_id):
 
   return jsonify({"Message":f"Mechanic_id:{mechanic_id}, has been successfully deleted"})
 
-#============Sort Mechanics by Based on Service Tickets  ======================
+#============SORT MECHANICS by Based on SERVICE TICKETS  ======================
 @mechanics_bp.route("/mechanics/best",methods =["GET"])
 def best_mechanics():
   query = select(Mechanic)

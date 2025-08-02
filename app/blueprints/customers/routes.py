@@ -6,7 +6,8 @@ from sqlalchemy import select
 from . import customers_bp
 from app.extentions import limiter,cache
 from app.utils.util import encode_token,token_required
-#This code generate token after logging in using email and password
+
+#=========GENERATING token after logging in using EMAIL and PASSWORD =================
 @customers_bp.route("/customer/login", methods=['POST'])
 def login():
     try:
@@ -30,7 +31,7 @@ def login():
     else:
         return jsonify({"Error": "Invalid email or password"})
 
-
+#============CREATE A CUSTOMER =======================
 @customers_bp.route("/customers", methods=['POST']) 
 def create_customer():
   try:

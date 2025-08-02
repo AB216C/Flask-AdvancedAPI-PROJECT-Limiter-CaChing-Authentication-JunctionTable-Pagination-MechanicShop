@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "401a4c34-a05e-459f-b75b-4c95b8e4d6ca",
 		"name": "TestingShopEndpoints",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "41290136"
 	},
 	"item": [
@@ -11,20 +11,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/customers",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"customers"
-					]
-				}
+				"url": "http://127.0.0.1:5000/customers"
 			},
 			"response": []
 		},
@@ -33,20 +20,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/customers",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"customers"
-					]
-				}
+				"url": "http://127.0.0.1:5000/customers"
 			},
 			"response": []
 		},
@@ -66,20 +40,7 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/customers",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"customers"
-					]
-				}
+				"url": "http://127.0.0.1:5000/customers"
 			},
 			"response": []
 		},
@@ -97,21 +58,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "http://127.0.0.1:5000/customer/login",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"customer",
-						"login"
-					]
-				}
+				"url": "http://127.0.0.1:5000/customer/login"
 			},
 			"response": []
 		},
@@ -120,21 +67,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/customers/1",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"customers",
-						"1"
-					]
-				}
+				"url": "http://127.0.0.1:5000/customers/1"
 			},
 			"response": []
 		},
@@ -143,31 +76,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTM5OTA4NzgsImlhdCI6MTc1Mzk4NzI3OCwic3ViIjoiMiJ9.6_SKt84iSZo-edlE1347AMURYiyyGr292nr-Wg4rbOA",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTM5OTA4NzgsImlhdCI6MTc1Mzk4NzI3OCwic3ViIjoiMiJ9.6_SKt84iSZo-edlE1347AMURYiyyGr292nr-Wg4rbOA"
+					}
 				},
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/customers/1",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"customers",
-						"1"
-					]
-				}
+				"url": "http://127.0.0.1:5000/customers/1"
 			},
 			"response": []
 		},
@@ -176,20 +91,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/inventory",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"inventory"
-					]
-				}
+				"url": "http://127.0.0.1:5000/inventory"
 			},
 			"response": []
 		},
@@ -206,21 +108,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/inventory/1",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"inventory",
-						"1"
-					]
-				}
+				"url": "http://127.0.0.1:5000/inventory/1"
 			},
 			"response": []
 		},
@@ -238,21 +126,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "http://127.0.0.1:5000/inventory/2",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"inventory",
-						"2"
-					]
-				}
+				"url": "http://127.0.0.1:5000/inventory/2"
 			},
 			"response": []
 		},
@@ -261,21 +135,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/inventory/3",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"inventory",
-						"3"
-					]
-				}
+				"url": "http://127.0.0.1:5000/inventory/3"
 			},
 			"response": []
 		},
@@ -293,8 +153,44 @@
 						}
 					}
 				},
+				"url": "http://127.0.0.1:5000/service_tickets/1/add_inventory"
+			},
+			"response": []
+		},
+		{
+			"name": "Adding&RemovingMechanicsToServiceTickets",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "// {\n//     \"add_mechanic_ids\": [1,3],\n//     \"remove_mechanic_ids\":[]\n// }\n\n{\n    \"add_mechanic_ids\": [2,3],\n    \"remove_mechanic_ids\":[1]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:5000/service_tickets/1"
+			},
+			"response": []
+		},
+		{
+			"name": "RankingMechanicsBasedOnServiceTickets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:5000/mechanics/best"
+			},
+			"response": []
+		},
+		{
+			"name": "PaginatingCustomers",
+			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/service_tickets/1/add_inventory",
+					"raw": "http://127.0.0.1:5000/customers?page=1&per_page=3",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -304,9 +200,49 @@
 					],
 					"port": "5000",
 					"path": [
-						"service_tickets",
-						"1",
-						"add_inventory"
+						"customers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "per_page",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddLimitingOnPaginatedRoute",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/customers?page=1&per_page=3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"customers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "per_page",
+							"value": "3"
+						}
 					]
 				}
 			},

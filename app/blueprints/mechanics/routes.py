@@ -78,3 +78,13 @@ def delete_mechanic(mechanic_id):
   db.session.commit()
 
   return jsonify({"Message":f"Mechanic_id:{mechanic_id}, has been successfully deleted"})
+
+#============Sort Mechanics by Based on Service Tickets  ======================
+@mechanics_bp.route("/mechanics/best",methods =["GET"])
+def best_mechanics():
+  query = select(Mechanic)
+  mechanics=db.session.execute(query).scalars().all()
+  
+  mechanics.sort(key=lambda mechanic:len(mechanic.service_tickets),reverse=True)
+
+  return mechanics_schema.jsonify(mechanics)

@@ -59,6 +59,22 @@ def get_customers():
   customers = db.session.execute(query).scalars().all()
   return jsonify(customers_schema.dump(customers)),200
 
+#==========Paginating customers ============================
+@customers_bp.route("/customers", methods=['GET'])
+@limiter.limit("5 per 30 seconds")
+@cache.cached(timeout=80)
+def get_paginated_customers():
+   try:
+      page = int(request.args.get('page'))
+      per_page = int(request.args.get('per_page'))
+      query = select(Customer)
+      customers = db.paginate(query, page = page, per_page = per_page)
+      return jsonify(customers_schema.dump(customers)),200
+   except:
+      query = select(Customer)
+      customers = db.session.execute(query).scalars().all()
+      return jsonify(customers_schema.dump(customers)),200
+
 #==============RETRIEVE SPECIFIC CUSTOMER=================
 
 @customers_bp.route("/customers/<int:customer_id>", methods=['GET'])

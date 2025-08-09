@@ -23,6 +23,12 @@ python3 -m pip install mysql-connector-python
 
 python3 -m pip install python-jose #To handle authentication
 
+python3 -m pip install Flask-Caching
+
+python3 -m pip install Flask-Limiter
+
+python3 -m pip install flask-swagger flask_swagger_ui
+
 
 # Project Description: AdvancedApi(Mechanic Shop)
 

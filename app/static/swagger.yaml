@@ -1,0 +1,242 @@
+### index.yaml
+swagger: '2.0'
+info:
+  title: "Your API"
+  description: "This is an API"
+  version: "1.0.0"
+host: "127.0.0.1:5000"
+schemes:
+  - "http"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+### Adding security definition
+securityDefinitions:
+  bearerAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+### Exceptional paths to the login routes are defined here
+paths:
+  /customer/login:
+    post:
+      tags:
+        - Customer
+      summary: "Login endpoint, (generates token)"
+      description: "Validates customer credentials, generates and return a customer specific token."
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Login Credentials"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginCredentials"
+      responses:
+        200:
+          description: "Login successful"
+          schema:
+            $ref: "#/definitions/LoginResponse"
+### Creating general paths to the routes
+  /customers:
+    post:
+      tags:
+      - Customer
+      summary: "Create a new customer"
+      description: "Create a new customoer with outlined details"
+      parameters:
+        - in: "body"
+          name: "body"
+          descriptoin: "Customer details"
+          required: true
+          schema: 
+            $ref: "#/definitions/CreateCustomerPayload"
+      responses:
+        200:
+          description: "Customer created successfully"
+          schema:
+            $ref: "#/definitions/CreateCustomerResponse"
+          examples:
+            application/json:
+              id: 1
+              name: "Jean Doe"
+              email: "jd@gmail.com"
+              phone: "345433222"
+              password: "four4"
+
+    get:
+      tags:
+      - Customer
+      summary: "Get all customers"
+      description: "Retrieve a list of all created customers"
+      responses:
+        200:
+          description: "Customer retrieved successfully"
+          schema:
+            $ref: "#/definitions/AllCustomers" 
+
+
+### Exceptional path to the route of updating or deleting customer
+  /customers/{customer_id}:  
+    put:
+      tags:
+      - Customer
+      summary: "Update an existing customer"
+      description: "Update an existing customer with new details-token required to complete the update"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: "customer_id"
+          in: "path"
+          description: "ID of the customer to update"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "body"
+          descriptoin: "Customer need to be logged in to update their account"
+          required: true
+          schema: 
+            $ref: "#/definitions/UpdateCustomerPayload"
+      responses:
+        200:
+          description: "Customer Updated successfully"
+          schema:
+            $ref: "#/definitions/UpdateCustomerResponse"
+          examples:
+            application/json:
+              id: 1
+              name: "Jean P"
+              email: "jP@gmail.com"
+              phone: "3454332224"
+              password: "four44"
+
+    delete:
+      tags:
+       - Customer
+      summary: "Delete a customer"
+      description: "Requires token authentication. Must be logged in"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: "customer_id"
+          in: "path"
+          description: "ID of the customer to delete"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Customer deleted successfully"
+          schema:
+            $ref: "#/definitions/DeleteCustomerResponse" 
+          examples:
+            application/json:
+              message: "successfully deleleted customer<customer_id>"
+
+
+### This is where routes are dfined
+definitions: 
+  LoginCredentials:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+      
+    required:
+      - email
+      - password
+    
+  LoginResponse:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+      message:
+        type: "string"
+      status:
+        type: "string"
+  
+  CreateCustomerPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      password:
+        type: "string"
+    required:
+      - name
+      - email
+      - phone
+      - password
+  CreateCustomerResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      password:
+        type: "string"
+
+  AllCustomers:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        id: 
+          type: "integer"
+        name:
+          type: "string"
+        email:
+          type: "string"
+        phone:
+          type: "string"
+        password:
+          type: "string"
+        
+  UpdateCustomerPayload:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      password:
+        type: "string"
+    required:
+      - name
+      - email
+      - phone
+      - password
+  UpdateCustomerResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      password:
+        type: "string"
+  DeleteCustomerResponse:
+    type: "object"
+    properties:
+        message:
+          type: "string"
+

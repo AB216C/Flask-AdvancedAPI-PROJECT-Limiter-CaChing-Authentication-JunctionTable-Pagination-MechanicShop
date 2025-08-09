@@ -37,7 +37,7 @@ paths:
           description: "Login successful"
           schema:
             $ref: "#/definitions/LoginResponse"
-### Creating general paths to the routes
+### Creating general paths to customer the routes
   /customers:
     post:
       tags:
@@ -76,6 +76,7 @@ paths:
             $ref: "#/definitions/AllCustomers" 
 
 
+
 ### Exceptional path to the route of updating or deleting customer
   /customers/{customer_id}:  
     put:
@@ -112,7 +113,7 @@ paths:
 
     delete:
       tags:
-       - Customer
+      - Customer
       summary: "Delete a customer"
       description: "Requires token authentication. Must be logged in"
       security:
@@ -127,14 +128,125 @@ paths:
         200:
           description: "Customer deleted successfully"
           schema:
-            $ref: "#/definitions/DeleteCustomerResponse" 
+            $ref: "#/definitions/DeleteCustomerPayload" 
           examples:
             application/json:
               message: "successfully deleleted customer<customer_id>"
 
+### Creating general paths to inventory routes
+  /inventory:
+    post:
+      tags:
+      - Inventory
+      summary: "Create a new inventory"
+      description: "Create a new inventory with outlined details"
+      parameters:
+        - in: "body"
+          name: "body"
+          descriptoin: "inventory details"
+          required: true
+          schema: 
+            $ref: "#/definitions/CreateInventoryPayload"
+      responses:
+        200:
+          description: "inventory created successfully"
+          schema:
+            $ref: "#/definitions/CreateInventoryResponse"
+          examples:
+            application/json:
+              id: 1
+              part_name: "front_arm"
+              part_number: 34534
+              price: 34.56
+
+    get:
+      tags:
+      - Inventory
+      summary: "Get all inventory"
+      description: "Retrieve a list of all created inventory"
+      responses:
+        200:
+          description: "inventory retrieved successfully"
+          schema:
+            $ref: "#/definitions/AllInventory" 
+
+
+### Exceptional path to the route of retrieving, updating or deleting specific inventory
+  /inventory/{inventory_id}:  
+    get:
+      tags:
+      - Inventory
+      summary: "Retrieve specific inventory"
+      description: "Retrieve a specific inventory by its ID"
+      parameters:
+        - name: "inventory_id"
+          in: "path"
+          description: "ID of the inventory to display"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "inventory retrieved successfully"
+          schema:
+            $ref: "#/definitions/RetrieveInventoryPayload"
+          examples:
+            application/json:
+              id: 1
+              part_name: "front_arm"
+              part_number: 34534
+              price: 34.56
+    put:
+      tags:
+      - Inventory
+      summary: "Update an existing inventory"
+      description: "Update an existing inventory with new details-token required to complete the update"
+      parameters:
+        - name: "inventory_id"
+          in: "path"
+          description: "ID of the inventory to update"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "body"
+          descriptoin: "Authentication not required to update inventory"
+          required: true
+          schema: 
+            $ref: "#/definitions/UpdateInventoryPayload"
+      responses:
+        200:
+          description: "inventory Updated successfully"
+          schema:
+            $ref: "#/definitions/UpdateInventoryResponse"
+          examples:
+            application/json:
+              id: 1
+              part_name: "front_arm"
+              part_number: 34534
+              price: 34.56
+
+    delete:
+      tags:
+      - Inventory
+      summary: "Delete a inventory"
+      description: "Authentication not required"
+      parameters:
+        - name: "inventory_id"
+          in: "path"
+          description: "ID of the inventory to delete"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "inventory deleted successfully"
+          schema:
+            $ref: "#/definitions/DeleteInventoryPayload" 
+          examples:
+            application/json:
+              message: "successfully deleleted inventory<inventory_id>"
 
 ### This is where routes are dfined
 definitions: 
+### Authenticated customer login credentials and response
   LoginCredentials:
     type: "object"
     properties:
@@ -157,6 +269,7 @@ definitions:
       status:
         type: "string"
   
+  ## General defininitions for customer routes
   CreateCustomerPayload:
     type: "object"
     properties:
@@ -202,7 +315,7 @@ definitions:
           type: "string"
         password:
           type: "string"
-        
+  ### Exceptional defintions for updating and deleting customer    
   UpdateCustomerPayload:
     type: "object"
     properties:
@@ -234,9 +347,96 @@ definitions:
         type: "string"
       password:
         type: "string"
-  DeleteCustomerResponse:
+  DeleteCustomerPayload:
     type: "object"
     properties:
         message:
           type: "string"
 
+  ## General defininitions for Inventory routes
+  CreateInventoryPayload:
+    type: "object"
+    properties:
+      part_name:
+        type: "string"
+      part_number:
+        type: "string"
+      price:
+        type: "float"
+    required:
+      - part_name
+      - part_number
+      - price
+  CreateInventoryResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      part_name:
+        type: "string"
+      part_number:
+        type: "string"
+      price:
+        type: "float"
+
+  AllInventory:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        id: 
+          type: "integer"
+        part_name:
+          type: "string"
+        part_number:
+          type: "string"
+        price:
+          type: "float"
+  ### Exceptional defintions for updating and deleting inventory
+  RetrieveInventoryPayload:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      part_name:
+        type: "string"
+      part_number:
+        type: "string"
+      price:
+        type: "float"
+    required:
+      - part_name
+      - part_number
+      - price 
+
+  UpdateInventoryPayload:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      part_name:
+        type: "string"
+      part_number:
+        type: "string"
+      price:
+        type: "float"
+    required:
+      - part_name
+      - part_number
+      - price
+  UpdateInventoryResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      part_name:
+        type: "string"
+      part_number:
+        type: "string"
+      price:
+        type: "float"
+  DeleteInventoryPayload:
+    type: "object"
+    properties:
+        message:
+          type: "string"

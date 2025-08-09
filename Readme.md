@@ -29,6 +29,9 @@ python3 -m pip install Flask-Limiter
 
 python3 -m pip install flask-swagger flask_swagger_ui
 
+<!-- python3 -m pip install swagger-cli -->
+npm install -g swagger-cli
+
 
 # Project Description: AdvancedApi(Mechanic Shop)
 

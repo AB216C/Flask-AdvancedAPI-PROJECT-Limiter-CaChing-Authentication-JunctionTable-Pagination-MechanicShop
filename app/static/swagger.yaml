@@ -47,7 +47,7 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          descriptoin: "Customer details"
+          description: "Customer details"
           required: true
           schema: 
             $ref: "#/definitions/CreateCustomerPayload"
@@ -94,7 +94,7 @@ paths:
           type: "integer"
         - in: "body"
           name: "body"
-          descriptoin: "Customer need to be logged in to update their account"
+          description: "Customer need to be logged in to update their account"
           required: true
           schema: 
             $ref: "#/definitions/UpdateCustomerPayload"
@@ -143,7 +143,7 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          descriptoin: "inventory details"
+          description: "inventory details"
           required: true
           schema: 
             $ref: "#/definitions/CreateInventoryPayload"
@@ -208,7 +208,7 @@ paths:
           type: "integer"
         - in: "body"
           name: "body"
-          descriptoin: "Authentication not required to update inventory"
+          description: "Authentication not required to update inventory"
           required: true
           schema: 
             $ref: "#/definitions/UpdateInventoryPayload"
@@ -244,7 +244,121 @@ paths:
             application/json:
               message: "successfully deleleted inventory<inventory_id>"
 
+### Mechanic routes
+### Creating general paths to mechanic routes
+  /mechanics:
+    post:
+      tags:
+      - Mechanic
+      summary: "Create a new mechanic"
+      description: "Create a new mechanic with outlined details"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "mechanic details"
+          required: true
+          schema: 
+            $ref: "#/definitions/CreateMechanicPayload"
+      responses:
+        200:
+          description: "mechanic created successfully"
+          schema:
+            $ref: "#/definitions/CreateMechanicResponse"
+          examples:
+            application/json:
+              id: 1
+              name: "Sam Tito"
+              email: "julius@gmail.com"
+              phone: "456444324456"
+              salary: "45,345"
+
+    get:
+      tags:
+      - Mechanic
+      summary: "Get all mechanic"
+      description: "Retrieve a list of all created mechanic"
+      responses:
+        200:
+          description: "mechanic retrieved successfully"
+          schema:
+            $ref: "#/definitions/AllMechanics" 
+
+### Exceptional path to the route of retrieving, updating or deleting specific Mechanics
+  /mechanics/{mechanic_id}:  
+    get:
+      tags:
+      - Mechanic
+      summary: "Retrieve specific mechanic"
+      description: "Retrieve a specific mechanic by its ID"
+      parameters:
+        - name: "mechanic_id"
+          in: "path"
+          description: "ID of the mechanic to display"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "mechanic retrieved successfully"
+          schema:
+            $ref: "#/definitions/RetrieveMechanicPayload"
+          examples:
+            application/json:
+              id: 1
+              name: "Sam Tito"
+              email: "julius@gmail.com"
+              phone: "456444324456"
+              salary: "45,345"
+    put:
+      tags:
+      - Mechanic
+      summary: "Update an existing mechanic"
+      description: "Update an existing mechanic with new details-token required to complete the update"
+      parameters:
+        - name: "mechanic_id"
+          in: "path"
+          description: "ID of the mechanic to update"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "body"
+          description: "Authentication not required to update mechanic"
+          required: true
+          schema: 
+            $ref: "#/definitions/UpdateMechanicPayload"
+      responses:
+        200:
+          description: "mechanic Updated successfully"
+          schema:
+            $ref: "#/definitions/UpdateMechanicResponse"
+          examples:
+            application/json:
+              id: 1
+              name: "front_arm"
+              email: "julius@gmail.com"
+              phone: "456444324456"
+              salary: "45,345"
+
+    delete:
+      tags:
+      - Mechanic
+      summary: "Delete a mechanic"
+      description: "Authentication not required"
+      parameters:
+        - name: "mechanic_id"
+          in: "path"
+          description: "ID of the mechanic to delete"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "mechanic deleted successfully"
+          schema:
+            $ref: "#/definitions/DeleteMechanicPayload" 
+          examples:
+            application/json:
+              message: "successfully deleleted mechanic<mechanic_id>"
 ### This is where routes are dfined
+### Customer Definitions
 definitions: 
 ### Authenticated customer login credentials and response
   LoginCredentials:
@@ -268,7 +382,6 @@ definitions:
         type: "string"
       status:
         type: "string"
-  
   ## General defininitions for customer routes
   CreateCustomerPayload:
     type: "object"
@@ -352,7 +465,7 @@ definitions:
     properties:
         message:
           type: "string"
-
+### Inventory Definitions
   ## General defininitions for Inventory routes
   CreateInventoryPayload:
     type: "object"
@@ -436,6 +549,108 @@ definitions:
       price:
         type: "float"
   DeleteInventoryPayload:
+    type: "object"
+    properties:
+        message:
+          type: "string"
+### Mechanic Definitions
+  ## General defininitions for Inventory routes
+  CreateMechanicPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      salary: 
+        type: "string"
+    required:
+      - name
+      - email
+      - phone
+      - salary
+  CreateMechanicResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      salary: 
+        type: "string"
+
+  AllMechanics:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        id: 
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      salary: 
+        type: "string"
+  ### Exceptional defintions for updating and deleting mechanic
+  RetrieveMechanicPayload:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      salary: 
+        type: "string"
+    required:
+      - name
+      - email
+      - phone
+      - salary
+
+  UpdateMechanicPayload:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      salary: 
+        type: "string"
+    required:
+      - name
+      - email
+      - phone   
+      - salary
+  UpdateMechanicResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      salary: 
+        type: "string"
+  DeleteMechanicPayload:
     type: "object"
     properties:
         message:

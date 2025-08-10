@@ -84,7 +84,18 @@ def delete_mechanic(mechanic_id):
 def best_mechanics():
   query = select(Mechanic)
   mechanics=db.session.execute(query).scalars().all()
-  
-  mechanics.sort(key=lambda mechanic:len(mechanic.service_tickets),reverse=True)
 
-  return mechanics_schema.jsonify(mechanics)
+  result = [
+    {
+      "id": mechanic.id,
+      "name": mechanic.name,
+      "email": mechanic.email,
+      "phone": mechanic.phone,
+      "salary": mechanic.salary,
+      "service_ticket_count": len(mechanic.service_tickets)
+    }
+
+    for mechanic in sorted(mechanics, key=lambda mechanic: len(mechanic.service_tickets), reverse= True)
+  ]
+
+  return jsonify(result),200

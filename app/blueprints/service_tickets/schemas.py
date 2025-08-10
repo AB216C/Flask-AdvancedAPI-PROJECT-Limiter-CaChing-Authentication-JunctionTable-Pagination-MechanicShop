@@ -4,13 +4,16 @@ from marshmallow import fields
 
 
 class Service_ticketSchema(ma.SQLAlchemyAutoSchema):
+  id = fields.Integer()
+  VIN = fields.String()
+  service_date = fields.Date()
   mechanics = fields.Nested("MechanicSchema",many=True)
   customer = fields.Nested("CustomerSchema")
   mechanic_ids = fields.List(fields.Integer(),load_only=True)
   class Meta:
     model = Service_ticket
     include_fk = True
-    fields = ("customer_id", "id", "mechanics", "customer", "mechanic_ids")
+    fields = ("id", "VIN","service_date","customer_id", "mechanics", "customer", "mechanic_ids")
 
 
 class Editservice_ticketSchema(ma.Schema):

@@ -53,6 +53,15 @@ The routes use Rate limiting and caching by which limiting prevent too many requ
 
 POSTMAN was used to test each end points from the routes for all tables, and the results was shown in the TestingShopEndpoints.postman_collection.json file. 
 
+Plus, API documentation was incorporated using both Swagger.yaml file. This(link: # http://127.0.0.1:5000/api/docs/#/) was essential to check if yaml file has accurate information.
+
+Further, each defined routes was tested in the processes called Test Driven Development(TDD) in REST API development,  and code were written using "tests folder" to show positive and negative tests of API using the following code:
+# python -m unittest discover -s tests -p "test_*.py"
+
+
+
+
+
 
 
 

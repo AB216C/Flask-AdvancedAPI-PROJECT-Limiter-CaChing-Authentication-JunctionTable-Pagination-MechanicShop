@@ -42,7 +42,7 @@ def get_inventory(inventory_id):
 
   if inventory:
     return inventory_schema.jsonify(inventory),200
-  return jsonify({"Error": "inventory not found"})
+  return jsonify({"Error": "inventory not found"}),404
 
 #=============UPDATE A inventory ========================
 
@@ -52,7 +52,7 @@ def update_inventory(inventory_id):
   inventory = db.session.get(Inventory,inventory_id)
 
   if not inventory:
-    return jsonify({"Error":"inventory not found"})
+    return jsonify({"Error":"inventory not found"}),404
   
   try:
     inventory_data = inventory_schema.load(request.json)
@@ -73,7 +73,7 @@ def delete_inventory(inventory_id):
   inventory = db.session.get(Inventory,inventory_id)
 
   if not inventory:
-    return jsonify({"Error":"inventory not found"})
+    return jsonify({"Error":"inventory not found"}),404
   
   db.session.delete(inventory)
   db.session.commit()

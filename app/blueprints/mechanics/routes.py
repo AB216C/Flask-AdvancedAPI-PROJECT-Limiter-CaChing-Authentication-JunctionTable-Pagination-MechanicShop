@@ -12,13 +12,13 @@ def create_mechanic():
     mechanic_data = mechanic_schema.load(request.json)
 
   except ValidationError as e:
-    return jsonify(e.messages),400
+    return jsonify(e.messages),404
   
   query = select(Mechanic).where(Mechanic.email==mechanic_data['email'])
 
   existing_mechanic=db.session.execute(query).scalars().all()
   if existing_mechanic:
-    return jsonify({"Error":"This email is associated with existing account"}),400
+    return jsonify({"Error":"This email is associated with existing account"}),404
 
   new_mechanic = Mechanic(**mechanic_data)
   db.session.add(new_mechanic)
@@ -41,7 +41,7 @@ def get_mechanic(mechanic_id):
 
   if mechanic:
     return mechanic_schema.jsonify(mechanic),200
-  return jsonify({"Error": "Mechanic not found"})
+  return jsonify({"Error": "Mechanic not found"}),404
 
 #=============UPDATE A Mechanic ========================
 
@@ -51,7 +51,7 @@ def update_mechanic(mechanic_id):
   mechanic = db.session.get(Mechanic,mechanic_id)
 
   if not mechanic:
-    return jsonify({"Error":"Mechanic not found"})
+    return jsonify({"Error":"Mechanic not found"}),404
   
   try:
     mechanic_data = mechanic_schema.load(request.json)
@@ -72,7 +72,7 @@ def delete_mechanic(mechanic_id):
   mechanic = db.session.get(Mechanic,mechanic_id)
 
   if not mechanic:
-    return jsonify({"Error":"Mechanic not found"})
+    return jsonify({"Error":"Mechanic not found"}),404
   
   db.session.delete(mechanic)
   db.session.commit()

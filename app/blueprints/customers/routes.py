@@ -86,7 +86,7 @@ def get_customer(customer_id):
 
   if customer:
     return customer_schema.jsonify(customer),200
-  return jsonify({"Error": "Customer not found"})
+  return jsonify({"Error": "Customer not found"}),404
 
 #=============UPDATE A CUSTOMER ========================
 

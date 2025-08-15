@@ -7,7 +7,6 @@ from marshmallow import ValidationError
 from sqlalchemy import select
 from . import service_tickets_bp
 
-
 #===========CREATE A SERVICE TICKET ========================
 @service_tickets_bp.route("/service_tickets", methods=['POST'])
 def create_service_ticket():

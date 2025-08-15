@@ -8,3 +8,12 @@ class TestingConfig:
 
 class ProductionConfig:
   pass
+
+## Adding configuration for testing purposes
+
+class TestingConfig:
+  SQLALCHEMY_DATABASE_URI = "sqlite:///testing.db"
+  DEBUG = True
+  CACHE_TYPE = 'SimpleCache'
+
+  

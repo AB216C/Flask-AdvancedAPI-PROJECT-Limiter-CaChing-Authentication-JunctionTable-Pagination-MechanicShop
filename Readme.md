@@ -37,6 +37,9 @@ python3 -m pip install flask-swagger flask_swagger_ui
 npm install -g swagger-cli
 
 
+# TO RUN TEST-Test Drivent Development
+python -m unittest discover -s tests -p "test_*.py"
+
 # Project Description: AdvancedApi(Mechanic Shop)
 
 

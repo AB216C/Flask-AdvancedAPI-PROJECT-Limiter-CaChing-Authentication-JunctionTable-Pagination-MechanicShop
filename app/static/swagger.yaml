@@ -11,7 +11,7 @@ info:
 #   - "http"
 
   #After deoployment-Host URL became a new URL from live webservice from Render while http become https
-host: "https://flask-advancedapi-project-limiter-35e4.onrender.com"
+host: "https://flask-advancedapi-project-limiter-n5fg.onrender.com"
 schemes:
   - "https"
 

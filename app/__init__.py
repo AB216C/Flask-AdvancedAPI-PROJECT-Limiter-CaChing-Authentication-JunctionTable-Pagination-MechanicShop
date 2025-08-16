@@ -6,8 +6,8 @@ from .blueprints.mechanics import mechanics_bp
 from .blueprints.service_tickets import service_tickets_bp
 from .blueprints.inventory import inventory_bp
 from flask_swagger_ui import get_swaggerui_blueprint
-from flask_cors import CORS
-from flask import send_from_directory,cross_origin
+from flask_cors import CORS,cross_origin
+from flask import send_from_directory
 
 
 

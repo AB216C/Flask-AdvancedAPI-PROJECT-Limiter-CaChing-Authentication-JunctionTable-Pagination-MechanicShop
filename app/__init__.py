@@ -11,7 +11,11 @@ from flask_cors import CORS
 
 
 SWAGGER_URL = '/api/docs' 
-API_URL = '/static/swagger.yaml'
+#before deployment
+# API_URL = '/static/swagger.yaml'
+#After deployment
+API_URL = 'https://flask-advancedapi-project-limiter-35e4.onrender.com/static/swagger.yaml'
+
 
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,

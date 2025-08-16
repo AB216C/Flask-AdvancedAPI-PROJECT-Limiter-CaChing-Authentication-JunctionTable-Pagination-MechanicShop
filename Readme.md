@@ -29,6 +29,7 @@ python3 -m pip install -r src/requirements.txt
 <!-- python3 -m pip install swagger-cli -->
 npm install -g swagger-cli
 
+# To add all installed packages to requirements.txt
 pip freeze > requirements.txt
 
 # TO RUN TEST-Test Drivent Development
@@ -40,6 +41,10 @@ python3 -m pip install gunicorn
 # TO ACCESS EXTERNAL DATABASE: SQLALCHEMY_DATABASE_URI = <external database url from render> from .env file, the following has to be installed:
 
 python3 -m  pip install python-dotenv
+
+# Your Flask app is trying to use PostgreSQL via SQLAlchemy, and it requires the psycopg2 package to communicate with the PostgreSQL database
+
+python3 -m pip install psycopg2-binary
 
 
 # Project Description: AdvancedApi(Mechanic Shop)

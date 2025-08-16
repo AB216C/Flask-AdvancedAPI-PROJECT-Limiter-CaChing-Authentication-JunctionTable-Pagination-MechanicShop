@@ -7,14 +7,12 @@ from .blueprints.service_tickets import service_tickets_bp
 from .blueprints.inventory import inventory_bp
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_cors import CORS
+from flask import send_from_directory
 
 
 
 SWAGGER_URL = '/api/docs' 
-#before deployment
-# API_URL = '/static/swagger.yaml'
-#After deployment
-API_URL = 'https://flask-advancedapi-project-limiter-35e4.onrender.com/static/swagger.yaml'
+API_URL = '/swagger.yaml'
 
 
 swaggerui_blueprint = get_swaggerui_blueprint(
@@ -30,6 +28,7 @@ def create_app(config_name):
   app.config.from_object(f'config.{config_name}')
   app.config['CACHE_TYPE'] = 'SimpleCache'
 
+  # to enable cors
   CORS(app)
   #initialize extentions
 
@@ -45,6 +44,9 @@ def create_app(config_name):
   app.register_blueprint(inventory_bp, url_prefix="/")
   app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL) #Registering our swagger blueprint
 
-
+# swagger.yaml via custom route
+  @app.route('/swagger.yaml')
+  def send_swagger():
+    return send_from_directory('static', 'swagger.yaml')
 
   return app

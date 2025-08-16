@@ -12,7 +12,7 @@ import mimetypes
 
 
 SWAGGER_URL = '/api/docs' 
-API_URL = 'https://flask-advancedapi-project-limiter-35e4.onrender.com/swagger.yaml'
+API_URL = '/swagger.yaml'
 
 
 swaggerui_blueprint = get_swaggerui_blueprint(

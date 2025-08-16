@@ -1,13 +1,4 @@
-
-#### NB: Sort mechanics not done yet
-
-
-
-
 # Packages Installation
-
-Remove current Environment
-
 
 Start with:
 python3 -m venv path/to/venv.  ->This will add a new environment
@@ -43,8 +34,15 @@ pip freeze > requirements.txt
 # TO RUN TEST-Test Drivent Development
 python -m unittest discover -s tests -p "test_*.py"
 
-# Project Description: AdvancedApi(Mechanic Shop)
+# For deployment purpose, install the following:
+python3 -m pip install gunicorn
 
+# TO ACCESS EXTERNAL DATABASE: SQLALCHEMY_DATABASE_URI = <external database url from render> from .env file, the following has to be installed:
+
+python3 -m  pip install python-dotenv
+
+
+# Project Description: AdvancedApi(Mechanic Shop)
 
 The project involves the relationship between customers, mechanics, service_tickets, and inventory(car parts) at the mechanic shop. All these elements are represented by the model as a table.
 
@@ -61,7 +59,10 @@ Plus, API documentation was incorporated using both Swagger.yaml file. This(link
 Further, each defined routes was tested in the processes called Test Driven Development(TDD) in REST API development,  and code were written using "tests folder" to show positive and negative tests of API using the following code:
 # python -m unittest discover -s tests -p "test_*.py"
 
+In addition, CI pipeline is introducted using workflow file called main.yaml and with github actions you can isee if build and test run green.
 
+
+SQL lite and MYSQL are local database.
 
 
 

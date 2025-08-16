@@ -1,13 +1,9 @@
+import os
 class DevelopmentConfig:
   SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:Mahirane231995@localhost/Shop'
 
   DEBUG = True #cause debugging for any changes you make  
 
-class TestingConfig:
-  pass
-
-class ProductionConfig:
-  pass
 
 ## Adding configuration for testing purposes
 
@@ -16,4 +12,7 @@ class TestingConfig:
   DEBUG = True
   CACHE_TYPE = 'SimpleCache'
 
-  
+class ProductionConfig:
+  SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+  CACHE_TYPE = "SimpleCache"
+

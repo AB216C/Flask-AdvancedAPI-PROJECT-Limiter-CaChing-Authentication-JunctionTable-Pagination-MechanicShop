@@ -54,6 +54,8 @@ gunicorn flask_app:app --bind 0.0.0.0:$PORT
 
 Gunicorn is the process manager-it runs the application its self. it doesn't need app.run()
 
+# TO RUN deployed URL on browser as url/api/docs:
+python3 -m pip install flask-cors
 
 # Project Description: AdvancedApi(Mechanic Shop)
 

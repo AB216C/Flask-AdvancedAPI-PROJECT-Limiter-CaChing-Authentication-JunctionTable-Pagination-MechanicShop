@@ -6,6 +6,8 @@ from .blueprints.mechanics import mechanics_bp
 from .blueprints.service_tickets import service_tickets_bp
 from .blueprints.inventory import inventory_bp
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_cors import CORS
+
 
 
 SWAGGER_URL = '/api/docs' 
@@ -24,6 +26,7 @@ def create_app(config_name):
   app.config.from_object(f'config.{config_name}')
   app.config['CACHE_TYPE'] = 'SimpleCache'
 
+  CORS(app)
   #initialize extentions
 
   ma.init_app(app)

@@ -32,7 +32,7 @@ class TestMechanic(unittest.TestCase):
 
         response = self.client.post('/mechanics',json=mechanic_payload)
         self.assertEqual(response.status_code,404)
-        self.assertEqual(response.json['salary'],['Missing data for the required field']) 
+        self.assertEqual(response.json['salary'],['Missing data for required field.']) 
 
     def test_get_all_mechanic(self):
         mechanic1 = {
@@ -88,7 +88,7 @@ class TestMechanic(unittest.TestCase):
     def test_get_non_existent_mechanic(self):
         response = self.client.get('/mechanics/100')
         self.assertEqual(response.status_code,404)
-        self.assertEqual(response.json['Error'], 'mechanic record not found')
+        self.assertEqual(response.json['Error'], 'Mechanic not found')
 
     
     def test_update_mechanic(self):
@@ -123,7 +123,7 @@ class TestMechanic(unittest.TestCase):
 
         updated_response = self.client.put(f'/mechanics/43',json=update_payload)
         self.assertEqual(updated_response.status_code,404)
-        self.assertEqual(updated_response.json['Error'], 'The mechanic not found')
+        self.assertEqual(updated_response.json['Error'], 'Mechanic not found')
 
     def test_delete_mechanic(self):
         #CREATING A NEW Mechanic ITEM FIRST
@@ -144,7 +144,7 @@ class TestMechanic(unittest.TestCase):
     def test_delete_non_existent_mechanic(self):
         delete_response = self.client.delete(f'/mechanics/43')
         self.assertEqual(delete_response.status_code,404)
-        self.assertEqual(delete_response.json['Error'], 'The mechanic not found') 
+        self.assertEqual(delete_response.json['Error'], 'Mechanic not found') 
 
 
 

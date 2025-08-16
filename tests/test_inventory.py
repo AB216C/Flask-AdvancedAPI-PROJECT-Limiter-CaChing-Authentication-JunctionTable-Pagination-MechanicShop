@@ -31,7 +31,7 @@ class TestInventory(unittest.TestCase):
 
         response = self.client.post('/inventory',json=inventory_payload)
         self.assertEqual(response.status_code,400)
-        self.assertEqual(response.json['price'],['Missing data for the required field'])
+        self.assertEqual(response.json['price'],['Missing data for required field.'])
 
     def test_get_all_inventory(self):
         item1 = {
@@ -75,7 +75,7 @@ class TestInventory(unittest.TestCase):
     def test_get_non_existent_inventory(self):
         response = self.client.get('/inventory/100')
         self.assertEqual(response.status_code,404)
-        self.assertEqual(response.json['Error'], 'Inventory record not found')
+        self.assertEqual(response.json['Error'], 'inventory not found')
 
     
     def test_update_inventory(self):
@@ -107,7 +107,7 @@ class TestInventory(unittest.TestCase):
 
         updated_response = self.client.put(f'/inventory/43',json=update_payload)
         self.assertEqual(updated_response.status_code,404)
-        self.assertEqual(updated_response.json['Error'], 'The inventory not found')
+        self.assertEqual(updated_response.json['Error'], 'inventory not found')
 
     def test_delete_inventory(self):
         #CREATING A NEW INVENTORY ITEM FIRST
@@ -127,7 +127,7 @@ class TestInventory(unittest.TestCase):
     def test_delete_non_existent_inventory(self):
         delete_response = self.client.delete(f'/inventory/43')
         self.assertEqual(delete_response.status_code,404)
-        self.assertEqual(delete_response.json['Error'], 'The inventory not found')
+        self.assertEqual(delete_response.json['Error'], 'inventory not found')
 
 
 

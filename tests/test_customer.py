@@ -32,7 +32,7 @@ class TestCustomer(unittest.TestCase):
 
         response = self.client.post('/customers',json=customer_payload)
         self.assertEqual(response.status_code,400)
-        self.assertEqual(response.json['password'],['Missing data for the required field'])  
+        self.assertEqual(response.json['password'],['Missing data for required field.'])  
 
     def test_get_specific_customer(self):
         customer_payload = {
@@ -53,6 +53,6 @@ class TestCustomer(unittest.TestCase):
     def test_get_non_existent_customer(self):
         response = self.client.get('/customers/100')
         self.assertEqual(response.status_code,404)
-        self.assertEqual(response.json['Error'], 'customer record not found')   
+        self.assertEqual(response.json['Error'], 'Customer not found')   
 
 

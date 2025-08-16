@@ -31,7 +31,7 @@ class TestServiceTicket(unittest.TestCase):
 
         response = self.client.post('/service_tickets',json=service_ticket_payload)
         self.assertEqual(response.status_code,400)
-        self.assertEqual(response.json['customer_id'],['Missing data for the required field'])
+        self.assertEqual(response.json['customer_id'],['Missing data for required field.'])
 
 
     def test_all_service_tickets(self):

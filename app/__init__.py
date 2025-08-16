@@ -7,7 +7,7 @@ from .blueprints.service_tickets import service_tickets_bp
 from .blueprints.inventory import inventory_bp
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_cors import CORS
-from flask import send_from_directory
+from flask import send_from_directory,cross_origin
 
 
 
@@ -46,6 +46,7 @@ def create_app(config_name):
 
 # swagger.yaml via custom route
   @app.route('/swagger.yaml')
+  @cross_origin()
   def send_swagger():
     return send_from_directory('static', 'swagger.yaml')
 

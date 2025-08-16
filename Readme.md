@@ -33,9 +33,12 @@ python3 -m pip install Flask-Limiter
 
 python3 -m pip install flask-swagger flask_swagger_ui
 
+python3 -m pip install -r src/requirements.txt
+
 <!-- python3 -m pip install swagger-cli -->
 npm install -g swagger-cli
 
+pip freeze > requirements.txt
 
 # TO RUN TEST-Test Drivent Development
 python -m unittest discover -s tests -p "test_*.py"

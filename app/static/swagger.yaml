@@ -4,9 +4,14 @@ info:
   title: "Your API"
   description: "This is an API"
   version: "1.0.0"
-host: "127.0.0.1:5000"
+  #Before deployment
+# host: "127.0.0.1:5000"
+# schemes:
+#   - "http"
+  #After deoployment-Host URL became a new URL from live webservice from Render while http become https
+host: "https://flask-advancedapi-project-limiter-35e4.onrender.com"
 schemes:
-  - "http"
+  - "https"
 consumes:
   - "application/json"
 produces:

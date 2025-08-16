@@ -46,6 +46,14 @@ python3 -m  pip install python-dotenv
 
 python3 -m pip install psycopg2-binary
 
+# Used to start command in Render application
+
+gunicorn flask_app:app --bind 0.0.0.0:$PORT
+
+# app.run()-turned off
+
+Gunicorn is the process manager-it runs the application its self. it doesn't need app.run()
+
 
 # Project Description: AdvancedApi(Mechanic Shop)
 
